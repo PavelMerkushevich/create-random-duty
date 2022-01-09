@@ -1,10 +1,11 @@
 package com.company;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
 import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 
 public class Duty {
     private HashMap<String, String> dutyMap = new LinkedHashMap<>();
@@ -14,8 +15,8 @@ public class Duty {
 
     Duty() {
         this.posts = Post.getPosts();
-        generateDutyMap();
-        generateDutyArray();
+        generateDutyMap2();
+//        generateDutyArray();
     }
 
     private void generateDutyMap() {
@@ -30,6 +31,23 @@ public class Duty {
                 } else {
                     studentsList.append(this.students.get(studentsCount));
                 }
+            }
+            this.dutyMap.put(post.getKey(), studentsList.toString());
+        }
+    }
+
+    private void generateDutyMap2() {
+        this.students = Students.getStudentsShuffle();
+        int studentsCount = 0;
+        for (HashMap.Entry<String, Integer> post : this.posts.entrySet()) {
+            StringBuilder studentsList = new StringBuilder();
+            for (int i = 0; i < post.getValue(); i++) {
+                if (i + 1 < post.getValue()) {
+                    studentsList.append(this.students.get(studentsCount)).append(", ");
+                } else {
+                    studentsList.append(this.students.get(studentsCount));
+                }
+                studentsCount++;
             }
             this.dutyMap.put(post.getKey(), studentsList.toString());
         }
@@ -58,12 +76,12 @@ public class Duty {
         return this.dutyArray;
     }
 
-    public void viewDutyMap(){
+    public void viewDutyMap() {
         StringBuilder postsWithStudentsList = new StringBuilder();
         for (HashMap.Entry<String, String> postWithStudents : this.dutyMap.entrySet()) {
             postsWithStudentsList.append(postWithStudents.getKey()).append(": ").append(postWithStudents.getValue()).append("\n");
         }
-        showMessageDialog(null, postsWithStudentsList.toString(), "Дежурство", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(null, postsWithStudentsList.toString(), "Дежурство", PLAIN_MESSAGE);
     }
 
 }
