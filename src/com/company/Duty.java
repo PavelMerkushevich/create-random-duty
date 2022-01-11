@@ -9,17 +9,19 @@ import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 
 public class Duty {
     private HashMap<String, String> dutyMap = new LinkedHashMap<>();
+    @Deprecated
     private String[][] dutyArray = new String[14][4];
     private HashMap<String, Integer> posts;
     private ArrayList<String> students;
 
     Duty() {
         this.posts = Post.getPosts();
-        generateDutyMap2();
+        generateDutyMap();
 //        generateDutyArray();
     }
 
-    private void generateDutyMap() {
+    @Deprecated
+    private void generateDutyMapD() {
         this.students = Students.getStudentsShuffle();
         int studentsCount = 0;
         for (HashMap.Entry<String, Integer> post : this.posts.entrySet()) {
@@ -36,7 +38,7 @@ public class Duty {
         }
     }
 
-    private void generateDutyMap2() {
+    private void generateDutyMap() {
         this.students = Students.getStudentsShuffle();
         int studentsCount = 0;
         for (HashMap.Entry<String, Integer> post : this.posts.entrySet()) {
@@ -53,6 +55,7 @@ public class Duty {
         }
     }
 
+    @Deprecated
     private void generateDutyArray() {
         this.students = Students.getStudentsShuffle();
         int studentsCount = 0;
@@ -72,6 +75,7 @@ public class Duty {
         return this.dutyMap;
     }
 
+    @Deprecated
     public String[][] getDutyArray() {
         return this.dutyArray;
     }
